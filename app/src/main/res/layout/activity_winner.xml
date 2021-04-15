@@ -14,7 +14,7 @@
         android:layout_marginTop="70dp"
         android:fontFamily="casual"
         android:gravity="center"
-        android:text="winner_player_name"
+        android:text="@string/winner_player_name"
         android:textColor="#805D20"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -61,9 +61,11 @@
         android:text="Play again"
         android:textColor="#604124"
         android:textSize="24sp"
+        android:onClick="playAgainGame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/winnerLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/winnerLogo"
+        />
 
     <Button
         android:id="@+id/ExitGameButton"
@@ -74,10 +76,12 @@
         android:text="Exit Game"
         android:textColor="#604124"
         android:textSize="24sp"
+        android:onClick="exitGame"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/PlayAgainBttton"
-        app:layout_constraintVertical_bias="0.07" />
+        app:layout_constraintVertical_bias="0.07"
+        tools:ignore="OnClick" />
 </androidx.constraintlayout.widget.ConstraintLayout>

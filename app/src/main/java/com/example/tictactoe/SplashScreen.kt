@@ -31,7 +31,7 @@ class SplashScreen : AppCompatActivity() {
         },TIME_OUT)
     }
     private fun animHandler() {
-        val image: ImageView=findViewById(R.id.strat_logo)
+        val image: ImageView=findViewById<ImageView>(R.id.strat_logo)
         val sloganGameName = findViewById<TextView>(R.id.sloganGameName)
         val slogen_wellcomeText = findViewById<TextView>(R.id.slogen_wellcomeText)
 

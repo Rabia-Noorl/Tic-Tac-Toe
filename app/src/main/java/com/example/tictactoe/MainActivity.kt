@@ -229,7 +229,7 @@ class MainActivity : AppCompatActivity() {
             // You can declare your desire activity here to open after finishing splash screen. Like MainActivity
             val intent = Intent(this,WinnerActivity::class.java)
             startActivity(intent)
-            finish()
+            finish();
         },TIME_OUT)
     }
 
