@@ -8,6 +8,7 @@
     <color name="startcolorgradient">#443C20</color>
     <color name="endcolorgradient">#e8a564</color>
     <color name="fbcolor">#3c62ac</color>
-    <color name="tintlogocolor">#AC7A4A</color>
+    <color name="textcolor">#805D20</color>
     <color name="goooglecolor">#C3463B</color>
+
 </resources>

@@ -15,13 +15,22 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+
+    companion object {
+        var player_turn = 1
+
+        var winner = -1
+    }
+
+
     private var TIME_OUT:Long = 1000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
+        var playerName : String?= intent.getStringExtra("player_name")
+        player_turn.setText(playerName)
         animHandler()
     }
     fun buClick(view: View)
@@ -50,22 +59,22 @@ class MainActivity : AppCompatActivity() {
     var activePlayer = 1
 
     private fun playGame(cellID: Int, btnSelected: Button) {
-        if (activePlayer == 1){
+        if (MainActivity.player_turn == 1){
             val mp: MediaPlayer = MediaPlayer.create(this, R.raw.buttonclicksound)
-            mp.start();
-            btnSelected.setBackgroundColor(Color.WHITE);
+            mp.start()
+            btnSelected.setBackgroundColor(Color.WHITE)
             btnSelected.setBackgroundResource(R.drawable.circle)
             player1.add(cellID)
-            activePlayer = 2
+            MainActivity.player_turn = 2
             autoPlay()
 
         }else{
-            btnSelected.setBackgroundColor(Color.WHITE);
+            btnSelected.setBackgroundColor(Color.WHITE)
             val mp: MediaPlayer = MediaPlayer.create(this, R.raw.buttonclicksound)
-            mp.start();
+            mp.start()
             btnSelected.setBackgroundResource(R.drawable.close)
             player2.add(cellID)
-            activePlayer = 1
+            MainActivity.player_turn = 1
         }
         btnSelected.isEnabled = false
 
@@ -74,7 +83,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun winnarPlayer() {
-        var winner = -1
         if(player1.contains(1) && player1.contains(2) && player1.contains(3) ||
             player1.contains(4) && player1.contains(5) && player1.contains(6) ||
             player1.contains(7) && player1.contains(8) && player1.contains(9) ||
@@ -86,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             player1.contains(3) && player1.contains(5) && player1.contains(7) )
 
             {
-                winner = 1
+                MainActivity.winner = 1
             } else if (player2.contains(1) && player2.contains(2) && player2.contains(3) ||
             player2.contains(4) && player2.contains(5) && player2.contains(6) ||
             player2.contains(7) && player2.contains(8) && player2.contains(9) ||
@@ -97,7 +105,10 @@ class MainActivity : AppCompatActivity() {
             player2.contains(1) && player2.contains(5) && player2.contains(9) ||
             player2.contains(3) && player2.contains(5) && player2.contains(7))
         {
-            winner = 2
+            MainActivity.winner = 2
+        }else
+        {
+            winner = -1
         }
 //        if(player2.contains(1) && player1.contains(2) && player1.contains(3))
 //        {
@@ -160,17 +171,26 @@ class MainActivity : AppCompatActivity() {
 //            winner = 2
 //        }
 
-        if (winner != -1)
+        if (MainActivity.winner == -1)
         {
-            if (winner == 1)
+
+
+            Toast.makeText(this, "No one is winner" , Toast.LENGTH_SHORT)
+        }
+
+        else
+        {
+            if (MainActivity.winner == 1)
             {
-                Toast.makeText(this, "Player 1 is winner! ", Toast.LENGTH_SHORT).show()
-                loadWinnerScreen()
-            } else if (winner == 2)
-                {
-                    Toast.makeText(this, "Player 2 is winner! ", Toast.LENGTH_SHORT).show()
-                    loadWinnerScreen()
-                }
+                var playerName : String?= intent.getStringExtra("player_name")
+                Toast.makeText(this, "$playerName is winner!  ", Toast.LENGTH_SHORT).show()
+                loadWinnerScreen(playerName)
+            } else if (MainActivity.winner == 2)
+            {
+                Toast.makeText(this, "Computer is winner", Toast.LENGTH_SHORT).show()
+                loadWinnerScreen("Computer")
+            }
+
         }
     }
     private fun autoPlay()
@@ -224,12 +244,13 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-    private fun loadWinnerScreen(){
+    private fun loadWinnerScreen( name: String?){
         Handler().postDelayed({
             // You can declare your desire activity here to open after finishing splash screen. Like MainActivity
             val intent = Intent(this,WinnerActivity::class.java)
+            intent.putExtra("player_name", name)
             startActivity(intent)
-            finish();
+            finish()
         },TIME_OUT)
     }
 

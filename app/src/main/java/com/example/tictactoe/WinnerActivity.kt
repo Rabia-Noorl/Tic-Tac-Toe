@@ -19,13 +19,15 @@ class WinnerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_winner)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN , WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
+        var playerName : String?= intent.getStringExtra("player_name")
+        val winner_player_name = findViewById<TextView>(R.id.winner_player_name)
+        winner_player_name.setText(playerName)
         winnerAnimHandler()
     }
 
     fun playAgainGame(view: View)
     {
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this,GameSetUp::class.java)
         startActivity(intent)
     }
     fun exitGame()
@@ -35,7 +37,7 @@ class WinnerActivity : AppCompatActivity() {
         private fun winnerAnimHandler()
     {
 
-        val winner_player_name = findViewById<TextView>(R.id.winner_player_name)
+
         val congraguation_text = findViewById<TextView>(R.id.congraguation_text)
         val winnerLogo: ImageView=findViewById(R.id.winnerLogo)
 
